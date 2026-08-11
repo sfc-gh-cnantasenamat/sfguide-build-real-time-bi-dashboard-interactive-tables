@@ -4,20 +4,35 @@ A complete, self-contained demo that generates live synthetic e-commerce orders 
 
 ## Architecture
 
+**Data flow (every second):**
 ```
-INTERACTIVE_ANALYTICS_SVC  ──CALL every 1s──▶  SP_SIMULATE_TICK
-     (SPCS container)                               │
-          ▲                              ┌──────────┼───────────┐
-          │ polls config                 ▼          ▼           ▼
-  SIMULATION_CONTROL ◄──Start/Stop── ORDERS  ORDERS_HISTORY   UPDATE
-          │                         (Interactive   (Table)    total_orders
-          │                           Table)
-          │                              │
-          │                   INTERACTIVE_ANALYTICS_IWH
-          │                    (Interactive Warehouse)
-          │                              │
-          └──────────────────────▶ LIVE_ORDERS_DASHBOARD
-                                   (Streamlit in Snowflake)
+INTERACTIVE_ANALYTICS_SVC (SPCS)
+  │  polls SIMULATION_CONTROL for is_running / mode / config
+  └─ CALL SP_SIMULATE_TICK
+          ├─ INSERT OVERWRITE ──▶ ORDERS (Interactive Table)
+          │                            └─ INTERACTIVE_ANALYTICS_IWH serves low-latency reads
+          ├─ INSERT INTO ──────▶ ORDERS_HISTORY (Table)
+          └─ UPDATE ───────────▶ SIMULATION_CONTROL (total_orders, last_active_at)
+```
+
+**Dashboard (Streamlit in Snowflake):**
+```
+LIVE_ORDERS_DASHBOARD
+  ├─ reads ORDERS via INTERACTIVE_ANALYTICS_IWH    (KPI tiles, live chart)
+  ├─ reads ORDERS_HISTORY via INTERACTIVE_ANALYTICS_WH  (time-series, heatmap)
+  ├─ reads/writes SIMULATION_CONTROL              (Start / Stop / Flash Sale / New session)
+  └─ resumes INTERACTIVE_ANALYTICS_SVC when suspended
+```
+
+**Maintenance (background):**
+```
+INTERACTIVE_ANALYTICS_AUTOSTOP (serverless task, every 15 min)
+  └─ sets SIMULATION_CONTROL.is_running = FALSE when idle > 1 hour
+       → INTERACTIVE_ANALYTICS_SVC self-suspends and exits
+
+INTERACTIVE_ANALYTICS_HISTORY_CLEANUP (warehouse task, daily 2am UTC)
+  └─ uses INTERACTIVE_ANALYTICS_WH
+  └─ deletes ORDERS_HISTORY rows older than 1 day
 ```
 
 ## Prerequisites
