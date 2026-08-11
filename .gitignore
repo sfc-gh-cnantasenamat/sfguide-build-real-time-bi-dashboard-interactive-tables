@@ -1,0 +1,13 @@
+# Secrets and keys — never commit
+.keys/
+**/rsa_key*.p8
+**/rsa_key*.pub
+**/profile.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store

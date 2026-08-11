@@ -1,0 +1,10 @@
+spec:
+  container:
+  - name: simulator
+    image: /interactive_streaming_demo/public/sim_repo/simulation:latest
+    env:
+      SNOWFLAKE_WAREHOUSE: INTERACTIVE_ANALYTICS_WH
+      SIM_INTERVAL: "1"
+      IDLE_SUSPEND_SECS: "3600"
+      ROWS_BASE: "100"
+      CTRL_CACHE_TICKS: "5"
