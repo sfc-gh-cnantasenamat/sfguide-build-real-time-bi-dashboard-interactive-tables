@@ -2,6 +2,8 @@
 
 A complete, self-contained demo that generates live synthetic e-commerce orders inside Snowflake and serves a continuously updating BI dashboard — no Kafka, no external message bus, no infrastructure outside Snowflake.
 
+![Demo screencast](quickstart/build-real-time-bi-dashboard-interactive-tables/assets/demo-screencast.gif)
+
 ## Architecture
 
 ![Architecture diagram](quickstart/build-real-time-bi-dashboard-interactive-tables/assets/architecture-diagram.png)
