@@ -1,4 +1,4 @@
-# Build a Real-Time BI Dashboard with Interactive Streaming
+# Build a Real-Time BI Dashboard with Interactive Tables
 
 A complete, self-contained demo that generates live synthetic e-commerce orders inside Snowflake and serves a continuously updating BI dashboard — no Kafka, no external message bus, no infrastructure outside Snowflake.
 
@@ -140,4 +140,4 @@ DROP DATABASE     IF EXISTS INTERACTIVE_STREAMING_DEMO;
 
 ## Full tutorial
 
-See the [step-by-step quickstart guide](quickstart/build-real-time-bi-dashboard-interactive-streaming/build-real-time-bi-dashboard-interactive-streaming.md) for a detailed walkthrough with explanations of each Snowflake object.
+See the [step-by-step quickstart guide](quickstart/build-real-time-bi-dashboard-interactive-tables/build-real-time-bi-dashboard-interactive-tables.md) for a detailed walkthrough with explanations of each Snowflake object.

@@ -1,13 +1,13 @@
 author: Chanin Nantasenamat
-id: build-real-time-bi-dashboard-interactive-streaming
-summary: Build a live e-commerce BI dashboard on Snowflake using interactive tables, an interactive warehouse, a Snowpark Container Services simulation service, and Streamlit in Snowflake — no external message bus required.
+id: build-real-time-bi-dashboard-interactive-tables
+summary: Build a live e-commerce BI dashboard on Snowflake using interactive tables, an interactive warehouse, a Snowpark Container Services simulation service, and Streamlit in Snowflake.
 categories: snowflake-site:taxonomy/solution-center/certification/quickstart, snowflake-site:taxonomy/product/analytics, snowflake-site:taxonomy/product/applications-and-collaboration, snowflake-site:taxonomy/snowflake-feature/interactive-tables, snowflake-site:taxonomy/snowflake-feature/interactive-warehouse
 environments: web
 language: en
 status: Published
 feedback link: https://github.com/Snowflake-Labs/sfguides/issues
 
-# Build a Real-Time BI Dashboard with Interactive Streaming
+# Build a Real-Time BI Dashboard with Interactive Tables
 <!-- ------------------------ -->
 ## Overview
 
