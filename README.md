@@ -4,6 +4,10 @@ A complete, self-contained demo that generates live synthetic e-commerce orders 
 
 ## Architecture
 
+![Architecture diagram](quickstart/build-real-time-bi-dashboard-interactive-tables/assets/architecture-diagram.png)
+
+The system is built entirely inside a single Snowflake account across three layers. A containerized **SPCS simulation service** runs a tight loop, calling a JavaScript stored procedure every second to generate synthetic orders. The stored procedure writes those orders into an **interactive table** whose cache is kept warm by an **interactive warehouse**, enabling sub-second reads by the dashboard. A **Streamlit in Snowflake** app surfaces live KPI tiles, charts, and simulation controls — it reads the current snapshot through the interactive warehouse and queries accumulated history through the standard warehouse. Two background tasks handle cost management automatically: one stops an idle simulation, the other purges old history rows daily.
+
 **Data flow (every second):**
 ```
 INTERACTIVE_ANALYTICS_SVC (SPCS)
